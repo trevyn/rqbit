@@ -1,0 +1,21 @@
+name: Check turbo branch
+
+on:
+  push:
+    branches: [ turbo ]
+  pull_request:
+    branches: [ turbo ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: Swatinem/rust-cache@v2
+    - name: Run tests
+      run: cargo check -p librqbit

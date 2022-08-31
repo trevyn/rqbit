@@ -5,17 +5,28 @@ on:
     branches: [ turbo ]
   pull_request:
     branches: [ turbo ]
+  schedule: [cron: '40 1 * * *']
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
-
+  check:
+    name: check rust ${{ matrix.rust }}
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        rust: [stable, beta, nightly]
 
     steps:
     - uses: actions/checkout@v3
+
+    - uses: hecrj/setup-rust-action@v1
+      with:
+        rust-version: ${{ matrix.rust }}
+    
     - uses: Swatinem/rust-cache@v2
-    - name: Run tests
-      run: cargo check -p librqbit
+
+    - run: cargo check -p librqbit --all-features

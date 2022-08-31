@@ -1,7 +1,6 @@
 [workspace]
 members = [
     "crates/librqbit",
-    "crates/rqbit",
     "crates/buffers",
     "crates/clone_to_owned",
     "crates/bencode",

@@ -1,18 +1,18 @@
-name: Check turbo branch
+name: Test turbo branch
 
 on:
   push:
-    branches: [ turbo ]
+    branches: [turbo]
   pull_request:
-    branches: [ turbo ]
-  schedule: [cron: '40 1 * * *']
+    branches: [turbo]
+  schedule: [cron: "40 1 * * *"]
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
   test:
-    name: check rust ${{ matrix.rust }}
+    name: test rust ${{ matrix.rust }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -21,12 +21,10 @@ jobs:
         rust: [stable, beta, nightly]
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - uses: hecrj/setup-rust-action@v1
-      with:
-        rust-version: ${{ matrix.rust }}
-    
-    - uses: Swatinem/rust-cache@v2
+      - run: rustup default ${{ matrix.rust }} && rustup update ${{ matrix.rust }}
 
-    - run: cargo test --workspace --all-features
+      - uses: Swatinem/rust-cache@v2
+
+      - run: cargo test --workspace --all-features

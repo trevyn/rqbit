@@ -15,7 +15,7 @@ bencode = {path = "../bencode", default-features=false}
 anyhow = "1"
 parking_lot = "0.12"
 log = "0.4"
-pretty_env_logger = "0.4"
+# pretty_env_logger = "0.4"
 futures = "0.3"
 rand = "0.8"
 indexmap = "1.7"
